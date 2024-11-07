@@ -57,7 +57,11 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        var_dump($request->all());
+        $updated = $this->user->where('id', $id)->update($request->except(['_token', '_method']));
+
+        if ($updated) {
+            return redirect()->back()->with('message', 'Succesfully updated');
+        }
     }
 
     /**
